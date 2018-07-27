@@ -183,6 +183,12 @@ mainApp.controller("loginViewController", function ($scope, $cookies, ClientApi,
                         $scope.PropertyCity = $scope.Property.Address.City;
                         $scope.PropertyCountry = $scope.Property.Address.Country;
                         $scope.PropertyZip_Code = $scope.Property.Address.Zip_Code;
+                        if ($scope.Property.ImageFiles.length > 0) {
+                            $scope.image_src = $scope.Property.ImageFiles[0].Image_File;
+                        }
+                        else {
+                            $scope.image_src = null;
+                        }
 
                         $scope.InsertRoomData = function (room) {
                             $scope.Room_ID = room.Room_ID;
@@ -660,7 +666,7 @@ mainApp.controller("AddRoomController", function ($scope, PropertyApi) {
 });
 
 mainApp.controller("UpdateRoomController", function ($scope, PropertyApi, LoggedIn) {
-    var onSucces = function (response) { alert("Information Updated"); window.location.href = "http://localhost:11958/#!/ManageBook"; };
+    var onSucces = function (response) { alert("Room information Updated"); window.location.reload(); };
 
     var onFailure = function (reason) { $scope.error = reason };
 
