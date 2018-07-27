@@ -1,0 +1,918 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BookingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Address_ID" Type="int" Nullable="false" />
+          <Property Name="AddressLine_1" Type="varchar" MaxLength="15" />
+          <Property Name="AddressLine_2" Type="varchar" MaxLength="15" />
+          <Property Name="AddressLine_3" Type="varchar" MaxLength="15" />
+          <Property Name="City" Type="varchar" MaxLength="15" />
+          <Property Name="Country" Type="varchar" MaxLength="15" />
+          <Property Name="Zip_Code" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="BookingRecord">
+          <Key>
+            <PropertyRef Name="BookingRecord_ID" />
+          </Key>
+          <Property Name="BookingRecord_ID" Type="int" Nullable="false" />
+          <Property Name="Client_email" Type="varchar" MaxLength="50" />
+          <Property Name="Client_FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="Client_LastName" Type="varchar" MaxLength="20" />
+          <Property Name="Card_Number" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="BookingRecordDetail">
+          <Key>
+            <PropertyRef Name="BookingRecordDetail_ID" />
+          </Key>
+          <Property Name="BookingRecordDetail_ID" Type="int" Nullable="false" />
+          <Property Name="CheckIn_Date" Type="date" />
+          <Property Name="CheckOut_Date" Type="date" />
+          <Property Name="Purchase_Amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Room_ID" Type="int" />
+          <Property Name="Property_ID" Type="int" />
+          <Property Name="BookingRecord_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Card">
+          <Key>
+            <PropertyRef Name="Card_Number" />
+          </Key>
+          <Property Name="Card_Number" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CVC_Code" Type="varchar" MaxLength="4" />
+          <Property Name="Exp_date" Type="date" />
+          <Property Name="CardType_ID" Type="int" />
+          <Property Name="Client_email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CardType">
+          <Key>
+            <PropertyRef Name="CardType_ID" />
+          </Key>
+          <Property Name="CardType_ID" Type="int" Nullable="false" />
+          <Property Name="Type_Description" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Client_email" />
+          </Key>
+          <Property Name="Client_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Client_Name" Type="varchar" MaxLength="20" />
+          <Property Name="Client_Password" Type="varchar" MaxLength="13" />
+          <Property Name="Phone_Number" Type="varchar" MaxLength="10" />
+          <Property Name="Client_Title" Type="varchar" MaxLength="10" />
+          <Property Name="Client_FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="Client_LastName" Type="varchar" MaxLength="20" />
+          <Property Name="Address_ID" Type="int" />
+          <Property Name="ClientType_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="ClientType">
+          <Key>
+            <PropertyRef Name="ClientType_ID" />
+          </Key>
+          <Property Name="ClientType_ID" Type="int" Nullable="false" />
+          <Property Name="Type_Description" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ImageFile">
+          <Key>
+            <PropertyRef Name="Image_ID" />
+          </Key>
+          <Property Name="Image_ID" Type="int" Nullable="false" />
+          <Property Name="Image_File" Type="image" />
+          <Property Name="Property_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="Property_ID" />
+          </Key>
+          <Property Name="Property_ID" Type="int" Nullable="false" />
+          <Property Name="Property_Name" Type="varchar" MaxLength="50" />
+          <Property Name="property_Description" Type="text" />
+          <Property Name="Property_No_Rooms" Type="int" />
+          <Property Name="PropertyType_ID" Type="int" />
+          <Property Name="Address_ID" Type="int" />
+          <Property Name="Client_email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PropertyType">
+          <Key>
+            <PropertyRef Name="PropertyType_ID" />
+          </Key>
+          <Property Name="PropertyType_ID" Type="int" Nullable="false" />
+          <Property Name="PropertyType_Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Review_ID" />
+          </Key>
+          <Property Name="Review_ID" Type="int" Nullable="false" />
+          <Property Name="Review_Rating" Type="int" />
+          <Property Name="Review_Description" Type="text" />
+          <Property Name="Client_email" Type="varchar" MaxLength="50" />
+          <Property Name="Property_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_ID" />
+          </Key>
+          <Property Name="Room_ID" Type="int" Nullable="false" />
+          <Property Name="Room_Name" Type="varchar" MaxLength="20" />
+          <Property Name="Room_Description" Type="text" />
+          <Property Name="Room_No_Occupants" Type="int" />
+          <Property Name="Room_Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Property_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK__BookingRe__Booki__32767D0B">
+          <End Role="BookingRecord" Type="Self.BookingRecord" Multiplicity="0..1" />
+          <End Role="BookingRecordDetail" Type="Self.BookingRecordDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingRecord">
+              <PropertyRef Name="BookingRecord_ID" />
+            </Principal>
+            <Dependent Role="BookingRecordDetail">
+              <PropertyRef Name="BookingRecord_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingRe__Prope__318258D2">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="BookingRecordDetail" Type="Self.BookingRecordDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="BookingRecordDetail">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingRe__Room___308E3499">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="BookingRecordDetail" Type="Self.BookingRecordDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_ID" />
+            </Principal>
+            <Dependent Role="BookingRecordDetail">
+              <PropertyRef Name="Room_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Card__CardType_I__0C50D423">
+          <End Role="CardType" Type="Self.CardType" Multiplicity="0..1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardType">
+              <PropertyRef Name="CardType_ID" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="CardType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Card__Client_ema__0D44F85C">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_email" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="Client_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__Address___531856C7">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__ClientTy__540C7B00">
+          <End Role="ClientType" Type="Self.ClientType" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientType">
+              <PropertyRef Name="ClientType_ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ClientType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImageFile__Prope__09746778">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="ImageFile">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Addres__5F7E2DAC">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Client__607251E5">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_email" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="Client_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Proper__5E8A0973">
+          <End Role="PropertyType" Type="Self.PropertyType" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyType">
+              <PropertyRef Name="PropertyType_ID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="PropertyType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Client_e__13F1F5EB">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_email" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Client_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Property__14E61A24">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Room__Property_I__11158940">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingDBModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingRecord" EntityType="Self.BookingRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingRecordDetail" EntityType="Self.BookingRecordDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardType" EntityType="Self.CardType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientType" EntityType="Self.ClientType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageFile" EntityType="Self.ImageFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PropertyType" EntityType="Self.PropertyType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BookingRe__Booki__32767D0B" Association="Self.FK__BookingRe__Booki__32767D0B">
+            <End Role="BookingRecord" EntitySet="BookingRecord" />
+            <End Role="BookingRecordDetail" EntitySet="BookingRecordDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingRe__Prope__318258D2" Association="Self.FK__BookingRe__Prope__318258D2">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="BookingRecordDetail" EntitySet="BookingRecordDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingRe__Room___308E3499" Association="Self.FK__BookingRe__Room___308E3499">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="BookingRecordDetail" EntitySet="BookingRecordDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Card__CardType_I__0C50D423" Association="Self.FK__Card__CardType_I__0C50D423">
+            <End Role="CardType" EntitySet="CardType" />
+            <End Role="Card" EntitySet="Card" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Card__Client_ema__0D44F85C" Association="Self.FK__Card__Client_ema__0D44F85C">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Card" EntitySet="Card" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__Address___531856C7" Association="Self.FK__Client__Address___531856C7">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__ClientTy__540C7B00" Association="Self.FK__Client__ClientTy__540C7B00">
+            <End Role="ClientType" EntitySet="ClientType" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImageFile__Prope__09746778" Association="Self.FK__ImageFile__Prope__09746778">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="ImageFile" EntitySet="ImageFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Addres__5F7E2DAC" Association="Self.FK__Property__Addres__5F7E2DAC">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Client__607251E5" Association="Self.FK__Property__Client__607251E5">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Proper__5E8A0973" Association="Self.FK__Property__Proper__5E8A0973">
+            <End Role="PropertyType" EntitySet="PropertyType" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Client_e__13F1F5EB" Association="Self.FK__Review__Client_e__13F1F5EB">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Property__14E61A24" Association="Self.FK__Review__Property__14E61A24">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Room__Property_I__11158940" Association="Self.FK__Room__Property_I__11158940">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Address_ID" Type="Int32" Nullable="false" />
+          <Property Name="AddressLine_1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine_2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine_3" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Zip_Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Client__Address___531856C7" FromRole="Address" ToRole="Client" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Addres__5F7E2DAC" FromRole="Address" ToRole="Property" />
+        </EntityType>
+        <EntityType Name="BookingRecord">
+          <Key>
+            <PropertyRef Name="BookingRecord_ID" />
+          </Key>
+          <Property Name="BookingRecord_ID" Type="Int32" Nullable="false" />
+          <Property Name="Client_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Client_FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Client_LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Card_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BookingRecordDetails" Relationship="Self.FK__BookingRe__Booki__32767D0B" FromRole="BookingRecord" ToRole="BookingRecordDetail" />
+        </EntityType>
+        <EntityType Name="BookingRecordDetail">
+          <Key>
+            <PropertyRef Name="BookingRecordDetail_ID" />
+          </Key>
+          <Property Name="BookingRecordDetail_ID" Type="Int32" Nullable="false" />
+          <Property Name="CheckIn_Date" Type="DateTime" Precision="0" />
+          <Property Name="CheckOut_Date" Type="DateTime" Precision="0" />
+          <Property Name="Purchase_Amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Room_ID" Type="Int32" />
+          <Property Name="Property_ID" Type="Int32" />
+          <Property Name="BookingRecord_ID" Type="Int32" />
+          <NavigationProperty Name="BookingRecord" Relationship="Self.FK__BookingRe__Booki__32767D0B" FromRole="BookingRecordDetail" ToRole="BookingRecord" />
+          <NavigationProperty Name="Property" Relationship="Self.FK__BookingRe__Prope__318258D2" FromRole="BookingRecordDetail" ToRole="Property" />
+          <NavigationProperty Name="Room" Relationship="Self.FK__BookingRe__Room___308E3499" FromRole="BookingRecordDetail" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Card">
+          <Key>
+            <PropertyRef Name="Card_Number" />
+          </Key>
+          <Property Name="Card_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CVC_Code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Exp_date" Type="DateTime" Precision="0" />
+          <Property Name="CardType_ID" Type="Int32" />
+          <Property Name="Client_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CardType" Relationship="Self.FK__Card__CardType_I__0C50D423" FromRole="Card" ToRole="CardType" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Card__Client_ema__0D44F85C" FromRole="Card" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="CardType">
+          <Key>
+            <PropertyRef Name="CardType_ID" />
+          </Key>
+          <Property Name="CardType_ID" Type="Int32" Nullable="false" />
+          <Property Name="Type_Description" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cards" Relationship="Self.FK__Card__CardType_I__0C50D423" FromRole="CardType" ToRole="Card" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Client_email" />
+          </Key>
+          <Property Name="Client_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Client_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Client_Password" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Client_Title" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Client_FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Client_LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="ClientType_ID" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__Client__Address___531856C7" FromRole="Client" ToRole="Address" />
+          <NavigationProperty Name="Cards" Relationship="Self.FK__Card__Client_ema__0D44F85C" FromRole="Client" ToRole="Card" />
+          <NavigationProperty Name="ClientType" Relationship="Self.FK__Client__ClientTy__540C7B00" FromRole="Client" ToRole="ClientType" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Client__607251E5" FromRole="Client" ToRole="Property" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__Client_e__13F1F5EB" FromRole="Client" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="ClientType">
+          <Key>
+            <PropertyRef Name="ClientType_ID" />
+          </Key>
+          <Property Name="ClientType_ID" Type="Int32" Nullable="false" />
+          <Property Name="Type_Description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Client__ClientTy__540C7B00" FromRole="ClientType" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="ImageFile">
+          <Key>
+            <PropertyRef Name="Image_ID" />
+          </Key>
+          <Property Name="Image_ID" Type="Int32" Nullable="false" />
+          <Property Name="Image_File" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Property_ID" Type="Int32" />
+          <NavigationProperty Name="Property" Relationship="Self.FK__ImageFile__Prope__09746778" FromRole="ImageFile" ToRole="Property" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="Property_ID" />
+          </Key>
+          <Property Name="Property_ID" Type="Int32" Nullable="false" />
+          <Property Name="Property_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="property_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Property_No_Rooms" Type="Int32" />
+          <Property Name="PropertyType_ID" Type="Int32" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="Client_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__Property__Addres__5F7E2DAC" FromRole="Property" ToRole="Address" />
+          <NavigationProperty Name="BookingRecordDetails" Relationship="Self.FK__BookingRe__Prope__318258D2" FromRole="Property" ToRole="BookingRecordDetail" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Property__Client__607251E5" FromRole="Property" ToRole="Client" />
+          <NavigationProperty Name="ImageFiles" Relationship="Self.FK__ImageFile__Prope__09746778" FromRole="Property" ToRole="ImageFile" />
+          <NavigationProperty Name="PropertyType" Relationship="Self.FK__Property__Proper__5E8A0973" FromRole="Property" ToRole="PropertyType" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__Property__14E61A24" FromRole="Property" ToRole="Review" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK__Room__Property_I__11158940" FromRole="Property" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="PropertyType">
+          <Key>
+            <PropertyRef Name="PropertyType_ID" />
+          </Key>
+          <Property Name="PropertyType_ID" Type="Int32" Nullable="false" />
+          <Property Name="PropertyType_Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Proper__5E8A0973" FromRole="PropertyType" ToRole="Property" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Review_ID" />
+          </Key>
+          <Property Name="Review_ID" Type="Int32" Nullable="false" />
+          <Property Name="Review_Rating" Type="Int32" />
+          <Property Name="Review_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Client_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Property_ID" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Review__Client_e__13F1F5EB" FromRole="Review" ToRole="Client" />
+          <NavigationProperty Name="Property" Relationship="Self.FK__Review__Property__14E61A24" FromRole="Review" ToRole="Property" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_ID" />
+          </Key>
+          <Property Name="Room_ID" Type="Int32" Nullable="false" />
+          <Property Name="Room_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Room_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Room_No_Occupants" Type="Int32" />
+          <Property Name="Room_Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Property_ID" Type="Int32" />
+          <NavigationProperty Name="BookingRecordDetails" Relationship="Self.FK__BookingRe__Room___308E3499" FromRole="Room" ToRole="BookingRecordDetail" />
+          <NavigationProperty Name="Property" Relationship="Self.FK__Room__Property_I__11158940" FromRole="Room" ToRole="Property" />
+        </EntityType>
+        <Association Name="FK__Client__Address___531856C7">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Addres__5F7E2DAC">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingRe__Booki__32767D0B">
+          <End Role="BookingRecord" Type="Self.BookingRecord" Multiplicity="0..1" />
+          <End Role="BookingRecordDetail" Type="Self.BookingRecordDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingRecord">
+              <PropertyRef Name="BookingRecord_ID" />
+            </Principal>
+            <Dependent Role="BookingRecordDetail">
+              <PropertyRef Name="BookingRecord_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingRe__Prope__318258D2">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="BookingRecordDetail" Type="Self.BookingRecordDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="BookingRecordDetail">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingRe__Room___308E3499">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="BookingRecordDetail" Type="Self.BookingRecordDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_ID" />
+            </Principal>
+            <Dependent Role="BookingRecordDetail">
+              <PropertyRef Name="Room_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Card__CardType_I__0C50D423">
+          <End Role="CardType" Type="Self.CardType" Multiplicity="0..1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardType">
+              <PropertyRef Name="CardType_ID" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="CardType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Card__Client_ema__0D44F85C">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_email" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="Client_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__ClientTy__540C7B00">
+          <End Role="ClientType" Type="Self.ClientType" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientType">
+              <PropertyRef Name="ClientType_ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ClientType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Client__607251E5">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_email" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="Client_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Client_e__13F1F5EB">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_email" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Client_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImageFile__Prope__09746778">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="ImageFile">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Proper__5E8A0973">
+          <End Role="PropertyType" Type="Self.PropertyType" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyType">
+              <PropertyRef Name="PropertyType_ID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="PropertyType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Property__14E61A24">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Room__Property_I__11158940">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Property_ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Property_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="BookingRecords" EntityType="Self.BookingRecord" />
+          <EntitySet Name="BookingRecordDetails" EntityType="Self.BookingRecordDetail" />
+          <EntitySet Name="Cards" EntityType="Self.Card" />
+          <EntitySet Name="CardTypes" EntityType="Self.CardType" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="ClientTypes" EntityType="Self.ClientType" />
+          <EntitySet Name="ImageFiles" EntityType="Self.ImageFile" />
+          <EntitySet Name="Properties" EntityType="Self.Property" />
+          <EntitySet Name="PropertyTypes" EntityType="Self.PropertyType" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <AssociationSet Name="FK__Client__Address___531856C7" Association="Self.FK__Client__Address___531856C7">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Addres__5F7E2DAC" Association="Self.FK__Property__Addres__5F7E2DAC">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingRe__Booki__32767D0B" Association="Self.FK__BookingRe__Booki__32767D0B">
+            <End Role="BookingRecord" EntitySet="BookingRecords" />
+            <End Role="BookingRecordDetail" EntitySet="BookingRecordDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingRe__Prope__318258D2" Association="Self.FK__BookingRe__Prope__318258D2">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="BookingRecordDetail" EntitySet="BookingRecordDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingRe__Room___308E3499" Association="Self.FK__BookingRe__Room___308E3499">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="BookingRecordDetail" EntitySet="BookingRecordDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Card__CardType_I__0C50D423" Association="Self.FK__Card__CardType_I__0C50D423">
+            <End Role="CardType" EntitySet="CardTypes" />
+            <End Role="Card" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Card__Client_ema__0D44F85C" Association="Self.FK__Card__Client_ema__0D44F85C">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Card" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__ClientTy__540C7B00" Association="Self.FK__Client__ClientTy__540C7B00">
+            <End Role="ClientType" EntitySet="ClientTypes" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Client__607251E5" Association="Self.FK__Property__Client__607251E5">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Client_e__13F1F5EB" Association="Self.FK__Review__Client_e__13F1F5EB">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImageFile__Prope__09746778" Association="Self.FK__ImageFile__Prope__09746778">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="ImageFile" EntitySet="ImageFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Proper__5E8A0973" Association="Self.FK__Property__Proper__5E8A0973">
+            <End Role="PropertyType" EntitySet="PropertyTypes" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Property__14E61A24" Association="Self.FK__Review__Property__14E61A24">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Room__Property_I__11158940" Association="Self.FK__Room__Property_I__11158940">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookingDBModelStoreContainer" CdmEntityContainer="BookingDBEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="BookingDBModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="AddressLine_1" ColumnName="AddressLine_1" />
+                <ScalarProperty Name="AddressLine_2" ColumnName="AddressLine_2" />
+                <ScalarProperty Name="AddressLine_3" ColumnName="AddressLine_3" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingRecords">
+            <EntityTypeMapping TypeName="BookingDBModel.BookingRecord">
+              <MappingFragment StoreEntitySet="BookingRecord">
+                <ScalarProperty Name="BookingRecord_ID" ColumnName="BookingRecord_ID" />
+                <ScalarProperty Name="Client_email" ColumnName="Client_email" />
+                <ScalarProperty Name="Client_FirstName" ColumnName="Client_FirstName" />
+                <ScalarProperty Name="Client_LastName" ColumnName="Client_LastName" />
+                <ScalarProperty Name="Card_Number" ColumnName="Card_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingRecordDetails">
+            <EntityTypeMapping TypeName="BookingDBModel.BookingRecordDetail">
+              <MappingFragment StoreEntitySet="BookingRecordDetail">
+                <ScalarProperty Name="BookingRecordDetail_ID" ColumnName="BookingRecordDetail_ID" />
+                <ScalarProperty Name="CheckIn_Date" ColumnName="CheckIn_Date" />
+                <ScalarProperty Name="CheckOut_Date" ColumnName="CheckOut_Date" />
+                <ScalarProperty Name="Purchase_Amount" ColumnName="Purchase_Amount" />
+                <ScalarProperty Name="Room_ID" ColumnName="Room_ID" />
+                <ScalarProperty Name="Property_ID" ColumnName="Property_ID" />
+                <ScalarProperty Name="BookingRecord_ID" ColumnName="BookingRecord_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cards">
+            <EntityTypeMapping TypeName="BookingDBModel.Card">
+              <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="Card_Number" ColumnName="Card_Number" />
+                <ScalarProperty Name="CVC_Code" ColumnName="CVC_Code" />
+                <ScalarProperty Name="Exp_date" ColumnName="Exp_date" />
+                <ScalarProperty Name="CardType_ID" ColumnName="CardType_ID" />
+                <ScalarProperty Name="Client_email" ColumnName="Client_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardTypes">
+            <EntityTypeMapping TypeName="BookingDBModel.CardType">
+              <MappingFragment StoreEntitySet="CardType">
+                <ScalarProperty Name="CardType_ID" ColumnName="CardType_ID" />
+                <ScalarProperty Name="Type_Description" ColumnName="Type_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="BookingDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Client_email" ColumnName="Client_email" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+                <ScalarProperty Name="Client_Password" ColumnName="Client_Password" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Client_Title" ColumnName="Client_Title" />
+                <ScalarProperty Name="Client_FirstName" ColumnName="Client_FirstName" />
+                <ScalarProperty Name="Client_LastName" ColumnName="Client_LastName" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="ClientType_ID" ColumnName="ClientType_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientTypes">
+            <EntityTypeMapping TypeName="BookingDBModel.ClientType">
+              <MappingFragment StoreEntitySet="ClientType">
+                <ScalarProperty Name="ClientType_ID" ColumnName="ClientType_ID" />
+                <ScalarProperty Name="Type_Description" ColumnName="Type_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageFiles">
+            <EntityTypeMapping TypeName="BookingDBModel.ImageFile">
+              <MappingFragment StoreEntitySet="ImageFile">
+                <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
+                <ScalarProperty Name="Image_File" ColumnName="Image_File" />
+                <ScalarProperty Name="Property_ID" ColumnName="Property_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="BookingDBModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="Property_ID" ColumnName="Property_ID" />
+                <ScalarProperty Name="Property_Name" ColumnName="Property_Name" />
+                <ScalarProperty Name="property_Description" ColumnName="property_Description" />
+                <ScalarProperty Name="Property_No_Rooms" ColumnName="Property_No_Rooms" />
+                <ScalarProperty Name="PropertyType_ID" ColumnName="PropertyType_ID" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Client_email" ColumnName="Client_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PropertyTypes">
+            <EntityTypeMapping TypeName="BookingDBModel.PropertyType">
+              <MappingFragment StoreEntitySet="PropertyType">
+                <ScalarProperty Name="PropertyType_ID" ColumnName="PropertyType_ID" />
+                <ScalarProperty Name="PropertyType_Description" ColumnName="PropertyType_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="BookingDBModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="Review_ID" ColumnName="Review_ID" />
+                <ScalarProperty Name="Review_Rating" ColumnName="Review_Rating" />
+                <ScalarProperty Name="Review_Description" ColumnName="Review_Description" />
+                <ScalarProperty Name="Client_email" ColumnName="Client_email" />
+                <ScalarProperty Name="Property_ID" ColumnName="Property_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="BookingDBModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="Room_ID" ColumnName="Room_ID" />
+                <ScalarProperty Name="Room_Name" ColumnName="Room_Name" />
+                <ScalarProperty Name="Room_Description" ColumnName="Room_Description" />
+                <ScalarProperty Name="Room_No_Occupants" ColumnName="Room_No_Occupants" />
+                <ScalarProperty Name="Room_Price" ColumnName="Room_Price" />
+                <ScalarProperty Name="Property_ID" ColumnName="Property_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

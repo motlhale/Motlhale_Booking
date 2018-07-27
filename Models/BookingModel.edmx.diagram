@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cb5a3daf6e334b1abb893e00bfa4e247" Name="Diagram1">
+        <EntityTypeShape EntityType="BookingDBModel.Address" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.BookingRecord" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.BookingRecordDetail" Width="1.5" PointX="12.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.Card" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.CardType" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.Client" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.ClientType" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.ImageFile" Width="1.5" PointX="10.5" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.Property" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.PropertyType" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.Review" Width="1.5" PointX="10.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingDBModel.Room" Width="1.5" PointX="10.5" PointY="15.875" IsExpanded="true" />
+        <AssociationConnector Association="BookingDBModel.FK__Client__Address___531856C7" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Property__Addres__5F7E2DAC" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__BookingRe__Booki__32767D0B" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__BookingRe__Prope__318258D2" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__BookingRe__Room___308E3499" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Card__CardType_I__0C50D423" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Card__Client_ema__0D44F85C" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Client__ClientTy__540C7B00" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Property__Client__607251E5" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Review__Client_e__13F1F5EB" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__ImageFile__Prope__09746778" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Property__Proper__5E8A0973" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Review__Property__14E61A24" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingDBModel.FK__Room__Property_I__11158940" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
