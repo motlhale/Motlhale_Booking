@@ -1,0 +1,43 @@
+﻿
+<form ng-controller="AddClientController">
+    <div>
+        <h2>Register</h2>
+        <p>Please fill in this form to create an account.</p>
+
+        <div class="form-group" style=" width:50%">
+            <label for="Email">Email</label>
+            <input type="email" placeholder="Enter email" ng-model="Client_email" class="form__input form-control" style="margin:1.5%;width:50%" required />
+
+            <label for="usrName">UserName</label>
+            <input type="text" placeholder="Username" ng-model="Client_Name" class="form__input form-control" style="margin:1.5%;width:50%" required />
+
+            <label for="psw">Create Password</label>
+            <input type="password" placeholder="Enter Password" ng-model="Client_Password" class="form__input form-control" style="margin:1.5%;width:50%" required />
+
+            <label for="pnum">Phone Number</label>
+            <input type="text" placeholder="Phone Number" ng-model="Phone_Number" class="form__input form-control" style="margin:1.5%;width:50%" />
+
+            <label for="Title">Title</label>
+            <input type="text" placeholder="Title" ng-model="Client_Title" class="form__input form-control" style="margin:1.5%;width:50%" />
+
+            <label for="fname">First Name</label>
+            <input type="text" placeholder="First Name" ng-model="Client_FirstName" class="form__input form-control" style="margin:1.5%;width:50%" />
+
+            <label for="lname">Last Name</label>
+            <input type="text" placeholder="Last Name" ng-model="Client_LastName" class="form__input form-control" style="margin:1.5%;width:50%" />
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    {{selectedType}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="type in Types"><a ng-click="selectedClientType(type)">{{type.Type_Description}}</a></li>
+                </ul>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="addClient()">Register</button>
+        </div>
+    </div>
+</form>
+
+
+

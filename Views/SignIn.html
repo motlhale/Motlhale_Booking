@@ -1,0 +1,13 @@
+﻿
+<h2>Sign In</h2>
+
+<div ng-controller="SignInController">
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="text" placeholder="Enter email" ng-model="Client_email" class="form__input form-control" style="margin:1.5%;width:50%" required />
+
+        <label for="SignInPwrd">Password</label>
+        <input type="password" id="SignInPwrd" placeholder="Enter Password" ng-model="Client_Password" class="form__input form-control" style="margin:1.5%;width:50%" required />
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="SignIn()">Sign In</button>
+</div>

@@ -1,0 +1,166 @@
+﻿<div ng-controller="ButtonsController">
+    <a class="btn btn-default" ng-click="SignInAction()">{{message}}</a>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" data-target="#MyProfile">My Profile</a></li>
+    <li><a data-toggle="tab" data-target="#PropertyInfo">Property Information</a></li>
+    <li><a data-toggle="tab" data-target="#BookingInfo">Booking Information</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="MyProfile" class="tab-pane fade in active" ng-controller="loginViewController" style="width:50%">
+        <p>Logged in as: {{Client_Name}}</p>
+        <form ng-controller="UpdateClientController">
+            <div id="updateInfo">
+                <label ng-model="Client_email" class="form-control">{{Client_email}}</label>
+
+                <label for="usrName">UserName</label>
+                <input type="text" placeholder="Username" ng-model="Client_Name" class="form-control" style="margin:1.5%" required />
+
+                <label for="psw">Password</label>
+                <input type="text" placeholder="Password" ng-model="Client_Password" class="form-control" style="margin:1.5%" required />
+
+                <label for="pnum">Phone Number</label>
+                <input type="text" placeholder="Phone Number" ng-model="Phone_Number" class="form-control" style="margin:1.5%" />
+
+                <label for="Title">Title</label>
+                <input type="text" placeholder="Title" ng-model="Client_Title" class="form-control" style="margin:1.5%" />
+
+                <label for="fname">First Name</label>
+                <input type="text" placeholder="First Name" ng-model="Client_FirstName" class="form-control" style="margin:1.5%" />
+
+                <label for="lname">Last Name</label>
+                <input type="text" placeholder="Last Name" ng-model="Client_LastName" class="form-control" style="margin:1.5%" />
+                <a class="btn btn-default" ng-click="UpdateClient()">Update Information</a><br />
+
+                <label for="adr1">Address</label>
+                <input type="text" ng-model="AddressLine_1" class="form-control" style="margin:1.5%" />
+                <input type="text" ng-model="AddressLine_2" class="form-control" style="margin:1.5%" />
+                <input type="text" ng-model="AddressLine_3" class="form-control" style="margin:1.5%" />
+
+                <label for="City">City</label>
+                <input type="text" placeholder="City" ng-model="City" class="form-control" style="margin:1.5%" />
+
+                <label for="Country">Counrty</label>
+                <input type="text" placeholder="Country" ng-model="Country" class="form-control" style="margin:1.5%" />
+
+                <label for="zCode">Zip Code</label>
+                <input type="text" placeholder="Zip Code" ng-model="Zip_Code" class="form-control" style="width:30%;margin:1.5%" />
+                <a class="btn btn-default" ng-click="UpdateAddress()">Update Information</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="PropertyInfo" class="tab-pane fade" ng-controller="loginViewController">
+        <h3>Property</h3>
+        <div ng-repeat="property in Properties">
+            <a data-target="#Property" data-toggle="collapse" ng-click="dropboxitemselected(property)">{{property.Property_Name}}</a>
+            <div id="Property" class="collapse fade">
+                <form ng-controller="UpdatePropertyController" style="width:50%">
+                    <div>Property Information</div>
+
+                    <label ng-model="Property_ID">Property ID:{{property.Property_ID}}</label><br />
+                    <label>Name</label>
+                    <input type="text" placeholder="Enter email" class="form-control" ng-model="Property_Name" style="margin:1.5%" required />
+
+                    <label>Description</label>
+                    <textarea class="form-control" rows="3" placeholder="Description" ng-model="property_Description" style="margin:1.5%"></textarea>
+
+                    <label>Rooms</label>
+                    <input type="number" class="form-control" placeholder="Number of Rooms" ng-model="Property_No_Rooms" style="margin:1.5%" />
+
+                    <label>Property Type</label>
+                    <div class="dropdown">
+                        <button ng-model="PropertyType_ID" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{selectedItem}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="propertyType in PropertyType"><a ng-click="dropboxitemselected(propertyType)">{{propertyType.PropertyType_Description}}</a></li>
+                        </ul>
+                    </div>
+
+                    <label for="adr1">Address</label>
+                    <label ng-model="Address_ID">{{Address_ID}}</label><br />
+                    <input type="text" ng-model="PropertyAddressLine_1" class="form-control" style="margin:1.5%" />
+                    <input type="text" ng-model="PropertyAddressLine_2" class="form-control" style="margin:1.5%" />
+                    <input type="text" ng-model="PropertyAddressLine_3" class="form-control" style="margin:1.5%" />
+
+                    <label for="City">City</label>
+                    <input type="text" placeholder="City" ng-model="PropertyCity" class="form-control" style="margin:1.5%" />
+
+                    <label for="Country">Counrty</label>
+                    <input type="text" placeholder="Country" ng-model="PropertyCountry" class="form-control" style="margin:1.5%" />
+
+                    <label for="zCode">Zip Code</label>
+                    <input type="text" placeholder="Zip Code" ng-model="PropertyZip_Code" class="form-control" style="width:30%;margin:1.5%" />
+
+                    <div ng-repeat="image in property.ImageFiles">
+                        <img style="width:120px;height:100px" data-ng-src="data:image/jpg;base64,{{property.ImageFiles[0].Image_File}}" class="img-thumbnail" alt="unable to display image" />
+                    </div>
+                    <label>Image upload</label><br />
+                    <input type="file" class="form-control" ng-model="ImageUpload" ng-change="UploadImage()" required />
+                    <button type="submit" class="form-control" ng-click="UploadImage()" style="width:30%">Upload Image</button>
+                    <div>
+                        <button type="submit" class="btn btn-success" ng-click="UpdateProperty()">Update Property</button>
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#RoomModal">Rooms</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form ng-controller="UpdateRoomController">
+            <div id="RoomModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">Room Information <label ng-model="Property_ID">{{Property.Property_ID}}</label></div>
+                        <div class="modal-body" ng-repeat="room in Property.Rooms">
+                            <label ng-model="Room_ID"><a data-toggle="collapse" data-target="#RoomData" ng-click="InsertRoomData(room)">{{room.Room_ID}}</a></label>
+                        </div>
+                        <div id="RoomData" class="collapse">
+                            <label>Name</label>
+                            <input type="text" placeholder="Name" ng-model="Room_Name" class="form-control" />
+                            <label>Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Description" ng-model="Room_Description"></textarea>
+                            <label>Number of Occupants</label>
+                            <input type="number" placeholder="Occupants" ng-model="Room_No_Occupants" class="form-control" />
+                            <label>Price</label>
+                            <input type="number" placeholder="Price" ng-model="Room_Price" class="form-control" />
+                            <button type="submit" class="btn btn-success" ng-click="UpdateRoom()">Update Room</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="BookingInfo" class="tab-pane fade" ng-controller="loginViewController">
+        <h3>Booking Records</h3>
+        <div ng-repeat="record in Bookings">
+            <a data-target="#Booking" data-toggle="collapse" ng-click="selectedBooking(record)">{{record.BookingRecordDetail_ID}}</a>
+        </div>
+        <div id="Booking" class="collapse fade">
+            <div>
+                <h3>Booked Rooms Information: {{BookingRecordDetail_ID}}</h3>
+                <h3>{{BookProperty_Name}}</h3><br />
+                <p>{{BookRoom_Name}}</p><br />
+                <label>Check In</label><br />
+                <p>{{BookCheckIn_Date}}</p><br />
+                <label>Check Out</label><br />
+                <p>{{BookCheckOut_Date}}</p><br />
+                <label>Client Information:</label><br />
+                <label>Email</label><br />
+                <p>{{BookClient_email}}</p><br />
+                <label>First Name</label><br />
+                <p>{{BookClient_FirstName}}</p><br />
+                <label>Last Name</label><br />
+                <p>{{BookClient_LastName}}</p><br />
+            </div>
+        </div>
+    </div>
+
+</div>

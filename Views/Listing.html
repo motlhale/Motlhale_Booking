@@ -1,0 +1,44 @@
+﻿<form ng-controller="AddPropertyController">
+    <div class="container">
+        <h2>Register your property</h2>
+        <p>Please fill in this form to register your property.</p>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Enter email" class="form-control" ng-model="Property_Name" style="margin:1.5%;width:50%" required />
+
+            <label>Description</label>
+            <textarea class="form-control" rows="3" placeholder="Description" ng-model="property_Description" style="margin:1.5%;width:50%"></textarea>
+
+            <label>Rooms</label>
+            <input type="number" class="form-control" placeholder="Number of Rooms" ng-model="Property_No_Rooms" style="margin:1.5%;width:50%" required />
+
+            <label>Property Type</label>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    {{selectedItem}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" >
+                    <li ng-repeat="propertyType in PropertyType"><a ng-click="dropboxitemselected(propertyType)">{{propertyType.PropertyType_Description}}</a></li>
+                </ul>
+            </div>
+
+            <label for="adr1">Address</label>
+            <input type="text" ng-model="AddressLine_1" class="form-control" style="margin:1.5%;width:50%" />
+            <input type="text" ng-model="AddressLine_2" class="form-control" style="margin:1.5%;width:50%" />
+            <input type="text" ng-model="AddressLine_3" class="form-control" style="margin:1.5%;width:50%" />
+
+            <label for="City">City</label>
+            <input type="text" placeholder="City" ng-model="City" class="form-control" style="margin:1.5%;width:50%" />
+
+            <label for="Country">Country</label>
+            <input type="text" placeholder="Country" ng-model="Country" class="form-control" style="margin:1.5%;width:50%" />
+
+            <label for="zCode">Zip Code</label>
+            <input type="text" placeholder="Zip Code" ng-model="Zip_Code" style="width:30%;margin:1.5%" class="form-control" />
+            <button type="submit" class="btn btn-primary" ng-click="addProperty()">Register</button>
+        </div>
+    </div>
+</form>
+

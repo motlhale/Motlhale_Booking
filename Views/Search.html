@@ -1,0 +1,39 @@
+﻿<div ng-controller="ViewResultsController">
+    <form class="search" style="border-radius:10px">
+        <h4>Search</h4>
+        <div class="form__field">
+            <label class="padding">Destination/Property Name:</label>
+            <input type="search" class="form__input" ng-model="searchText" placeholder="Where are you going?" style="margin:auto" />
+            <label class="padding"> Check-in: </label>
+            <input type="date" class="form__input" ng-model="Check_in" placeholder="Check-In Date" />
+            <label class="padding"> Check-out: </label>
+            <input type="date" class="form__input" ng-model="Check_out" placeholder="Check-Out Date" />
+            <label class="padding"> Guest: </label>
+            <input type="number" class="form__input" ng-model="People" />
+            <input class="button" type="submit" value="Search" ng-click="onUpdate()" />
+        </div>
+    </form>
+</div>
+
+<div class="container col-md-9" ng-controller="ViewResultsController">
+    <div ng-repeat="property in Result" class="list-group">
+        <div class="row">
+            <div class="col-md-6">
+                <a ng-click="Book(property.Property_ID)">
+                    <h3>{{property.Property_Name}}</h3>
+                    <img data-ng-src="data:image/jpg;base64,{{property.ImageFiles[0].Image_File}}" class="img-thumbnail" alt="unable to display image" />
+                </a>
+                <p>{{property.property_Description}}</p>
+            </div>
+            <div>
+                <br />
+                <p>{{property.PropertyType.PropertyType_Description}}</p>
+                <p>{{property.Address.AddressLine_1}}</p>
+                <p>{{property.Address.AddressLine_2}}</p>
+                <p>{{property.Address.AddressLine_3}}</p>
+                <p>{{property.Address.City}}</p>
+                <p>{{property.Address.Country}}</p>
+            </div>
+        </div>
+    </div>
+</div>

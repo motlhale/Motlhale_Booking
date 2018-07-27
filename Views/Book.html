@@ -1,0 +1,66 @@
+﻿
+<div class="row col-sm-3" ng-controller="ReviewController">
+    <h3>Reviews</h3>
+    <form class="search" ng-show="LoggedIn">
+        <div class="form__field">
+            <label>Rating</label>
+            <input class="form__input form-control" type="number" ng-model="Review_Rating" placeholder="Rating" />
+            <label>Description</label>
+            <textarea class="form__input form-control" rows="3" placeholder="Place Review" ng-model="Review_Description"></textarea>
+            <label ng-model="Client_UserName">{{Client_UserName}}</label>
+            <input class="button" type="submit" value="Submit Review" ng-click="addReview()"/>
+        </div>
+    </form>
+    <div ng-repeat="review in Property.Reviews">
+        <label>{{review.Review_Rating}}/10</label>
+        <p>{{review.Review_Description}}</p>
+        <label class="glyphicon glyphicon-user"> {{review.Client.Client_FirstName}}</label>
+    </div>
+</div>
+<div class="container col-sm-offset-4" style="width:50%">
+    <form ng-controller="AddBookingController">
+        <h3>Book your stay:</h3>
+        <label ng-model="BookingRecord_ID">Booking reference number: {{BookingRecord_ID}}</label>
+        <div>
+            <label>Property</label>
+            <div>
+                <h4 ng-model="Property_Name">{{Property_Name}}</h4>
+                <div>
+                    <img class="img-thumbnail" data-ng-src="data:image/jpg;base64,{{image}}" alt="propertyImage" style="width:100%;margin-bottom:-6px" />
+                </div>
+                <p>{{property_Description}}</p>
+            </div>
+            <h4>Dates:</h4>
+            <label>Check In</label>
+            <input type="date" class="form-control" ng-model="CheckIn_Date" ng-change="CheckAvailable(CheckIn_Date,CheckOut_Date)" style="width:30%;margin:1.5%" required />
+            <label>Check Out</label>
+            <input type="date" class="form-control" ng-model="CheckOut_Date" ng-change="CheckAvailable(CheckIn_Date,CheckOut_Date)" style="width:30%;margin:1.5%" required />
+            <label>Room</label>
+            <div class="dropdown">
+                <button ng-model="Room_ID" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:30%;margin:1.5%">
+                    {{selectedRoom}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="room in AvailiableRooms"><a ng-click="dropboxroomselected(room)">{{room.Room_Name}}|{{room.Room_Price}}</a></li>
+                </ul>
+            </div>
+            <div ng-repeat="room in CheckedRoom">
+                <label>{{room.Room_Name}},{{room.Room_Price}}</label><br />
+            </div>
+        </div>
+        <div>
+            <h4>Booking for:</h4>
+            <input type="email" placeholder="Enter email" ng-model="Client_email" class="form__input form-control" style="margin:1.5%;width:50%" required />
+            <label>First Name</label>
+            <input type="text" ng-model="Client_FirstName" class="form__input form-control" style="margin:1.5%;width:50%" required/>
+            <label>Last Name</label>
+            <input type="text" ng-model="Client_LastName" class="form__input form-control" style="margin:1.5%;width:50%" required/>
+        </div>
+        
+        <div>
+            <h4 ng-model="Total_Price">Total Payment: {{message}}</h4>
+        </div>    
+        <a class="btn btn-primary" ng-click="addBooking()">Make Reservation</a>
+    </form>
+</div>

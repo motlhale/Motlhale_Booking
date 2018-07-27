@@ -1,0 +1,165 @@
+﻿<div ng-controller="ButtonsController">
+    <a class="btn btn-default" ng-click="SignInAction()">{{message}}</a>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" data-target="#MyProfile">My Profile</a></li>
+    <li><a data-toggle="tab" data-target="#PropertyInfo">Property Information</a></li>
+    <li><a data-toggle="tab" data-target="#ClientInfo">Clients Information</a></li>
+    <li><a data-toggle="tab" data-target="#BookingInfo">Booking Information</a></li>
+    <li><a data-toggle="tab" data-target="#AddAdmin">Add new Admin</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="MyProfile" class="tab-pane fade in active" ng-controller="loginViewController" style="width:50%">
+        <p>Logged in as: {{Client_Name}}</p>
+        <form ng-controller="UpdateClientController">
+            <div id="updateInfo">
+                <label ng-model="Client_email" class="form-control">{{Client_email}}</label>
+
+                <label for="usrName">UserName</label>
+                <input type="text" placeholder="Username" ng-model="Client_Name" class="form-control" style="margin:1.5%" required />
+
+                <label for="psw">Password</label>
+                <input type="text" placeholder="Password" ng-model="Client_Password" class="form-control" style="margin:1.5%" required />
+
+                <label for="pnum">Phone Number</label>
+                <input type="text" placeholder="Phone Number" ng-model="Phone_Number" class="form-control" style="margin:1.5%" />
+
+                <label for="Title">Title</label>
+                <input type="text" placeholder="Title" ng-model="Client_Title" class="form-control" style="margin:1.5%" />
+
+                <label for="fname">First Name</label>
+                <input type="text" placeholder="First Name" ng-model="Client_FirstName" class="form-control" style="margin:1.5%" />
+
+                <label for="lname">Last Name</label>
+                <input type="text" placeholder="Last Name" ng-model="Client_LastName" class="form-control" style="margin:1.5%" />
+                <a class="btn btn-default" ng-click="UpdateClient()">Update Information</a><br />
+
+                <label for="adr1">Address</label>
+                <input type="text" ng-model="AddressLine_1" class="form-control" style="margin:1.5%" />
+                <input type="text" ng-model="AddressLine_2" class="form-control" style="margin:1.5%" />
+                <input type="text" ng-model="AddressLine_3" class="form-control" style="margin:1.5%" />
+
+                <label for="City">City</label>
+                <input type="text" placeholder="City" ng-model="City" class="form-control" style="margin:1.5%" />
+
+                <label for="Country">Counrty</label>
+                <input type="text" placeholder="Country" ng-model="Country" class="form-control" style="margin:1.5%" />
+
+                <label for="zCode">Zip Code</label>
+                <input type="text" placeholder="Zip Code" ng-model="Zip_Code" class="form-control" style="width:30%;margin:1.5%" />
+                <a class="btn btn-default" ng-click="UpdateAddress()">Update Information</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="PropertyInfo" class="tab-pane fade" ng-controller="GetPropertiesController">
+        <h3>Property</h3>
+        <div ng-repeat="property in Properties">
+            <div class="row">
+                <div class="col-sm-3 ">
+                    <label>{{property.Property_Name}}</label><br />
+                    <label>{{property.PropertyType.PropertyType_Description}}</label><br />
+                </div>
+                <div class="col-sm-3">
+                    <label>Address</label>
+                    <p>
+                        {{property.Address.AddressLine_1}}<br />
+                        {{property.Address.AddressLine_2}}<br />
+                        {{property.Address.AddressLine_3}}<br />
+                        {{property.Address.City}}<br />
+                        {{property.Address.Country}}<br />
+                        {{property.Address.Zip_Code}}<br />
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <label>Room Information</label>
+                    <p ng-repeat="room in property.Rooms">
+                        {{room.Room_Name}}<br />
+                        {{room.Room_Price}}<br />
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <label>Manager Infromation</label>
+                    <p>
+                        {{property.Client.Client_FirstName}}<br />
+                        {{property.Client.Client_LastName}}<br />
+                        {{property.Client.ClientType.Type_Description}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ClientInfo" class="tab-pane fade" ng-controller="GetClientsController">
+        <h3>Clients</h3>
+        <div ng-repeat="client in Clients">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>{{client.Client_email}}</label><br />
+                    <label>{{client.Client_FirstName}}</label><br />
+                    <label>{{client.Client_LastName}}</label><br />
+                    <label>{{client.ClientType.Type_Description}}</label>
+                </div>
+                <div class="col-sm-4">
+                    <p>
+                        {{client.Address.AddressLine_1}}<br />
+                        {{client.Address.AddressLine_2}}<br />
+                        {{client.Address.AddressLine_3}}<br />
+                        {{client.Address.City}}<br />
+                        {{client.Address.Country}}<br />
+                        {{client.Address.Zip_Code}}<br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="BookingInfo" class="tab-pane fade" ng-controller="GetBookingsController">
+        <h3>Booking Records</h3>
+        <div ng-repeat="record in Bookings">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Booking record ID : {{record.BookingRecord_ID}}</label><br />
+                    <label>{{record.Client_email}}</label><br />
+                    <label>{{record.Client_FirstName}}</label><br />
+                    <label>{{record.Client_LastName}}</label><br />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-repeat="recorddetail in record.BookingRecordDetails">
+                        <p>
+                            {{recorddetail.CheckIn_Date}}<br />
+                            {{recorddetail.CheckOut_Date}}<br />
+                            {{recorddetail.Purchase_Amount}}<br />
+                            {{recorddetail.Room.Room_Name}}<br />
+                            {{recorddetail.Property.Property_Name}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="AddAdmin" class="tab-pane fade">
+        <h3>Admins</h3>
+        <form ng-controller="AddAdminController" style="width:50%">
+            <label>Client email</label>
+            <input type="text" placeholder="Client email" ng-model="Client_email" />
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    {{selectedType}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="type in ClientTypes"><a ng-click="selectedClientType(type)">{{type.Type_Description}}</a></li>
+                </ul>
+            </div>
+            <br />
+            <a class="btn btn-default" ng-click="addClient()">Add Admin</a>
+        </form>
+    </div>
+
+</div>
+
+

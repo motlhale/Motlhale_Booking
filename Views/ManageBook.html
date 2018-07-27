@@ -1,0 +1,39 @@
+﻿
+<form ng-controller="UpdateBookingController">
+    <h2>Booking Information</h2>
+    <div class="form-group">
+        <label>{{Property_Name}}</label>
+        <label>Rooms:</label>
+        <div ng-repeat="record in Detail">
+            <p>{{record.Room.Room_Name}}<br />number of occupants: {{record.Room.Room_No_Occupants}}<br /> Price: {{record.Room.Room_Price}}</p><a ng-hide="Paid" class="btn btn-danger" ng-click="RemoveDetail(record)">Remove</a>
+        </div>
+        <h4>{{message}}</h4>
+    </div>
+    <a class="btn btn-danger" ng-hide="Paid" ng-click="RemoveRecord()">Cancel Reservation</a>
+    <a ng-hide="Paid" data-toggle="collapse" data-target="#Payment" class="btn btn-default">Payment</a>
+    <a href="#!Home" class="btn btn-primary">Done</a>
+</form>
+
+<form ng-controller="UpdateBookingController" style="width:50%">
+    <div id="Payment" class="collapse" style="background-color:lightblue">
+        <h4>Card Information:</h4>
+        <label>Card Number</label>
+        <input type="text" placeholder="Card Number" class="form-control" ng-model="Card_Number" style="width:30%;margin:1.5%" required />
+        <label>Card Type</label>
+        <div class="dropdown">
+            <button ng-model="CardType_ID" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                {{selectedCard}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="cardType in CardTypes"><a ng-click="dropboxcardselected(cardType)">{{cardType.Type_Description}}</a></li>
+            </ul>
+        </div>
+        <label>CVC Code</label>
+        <input type="text" placeholder="Code" class="form-control" ng-model="CVC_Code" style="width:25%;margin:1.5%" required/>
+        <label>Expiration Date</label>
+        <input type="date" class="form-control" ng-model="Exp_date" style="width:25%;margin:1.5%" required/>
+        <a class="btn btn-default" ng-click="makePayment()">Make Payment</a>
+        <a class="btn btn-default" ng-show="LoggedIn" ng-click="saveCard()">Save Card</a>
+    </div>
+</form>

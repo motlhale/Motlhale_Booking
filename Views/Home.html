@@ -1,0 +1,253 @@
+﻿<div style="background-color:#063684;" ng-controller="ButtonsController">
+    <div class="row">
+        <div>
+            <div class="container text-center" ng-controller="GetRecordController">
+                <a data-toggle="collapse" data-target="#Record">Manage Bookings</a>
+                <div class="collapse" id="Record">
+                    <input type="text" ng-model="Record_ID" placeholder="Reservation Number" />
+                    <button type="submit" class="btn btn-primary" ng-click="getRecord()">Find</button>
+                </div>
+            </div>
+            <a class="btn btn-default col-sm-offset-8" href="#!Listing">List Your Property</a>
+            <a class="btn btn-default" href="#!Register" ng-show="Registered"> Register</a>
+            <a class="btn btn-default" ng-click="SignInAction()">{{message}}</a>
+        </div>
+    </div>
+    <nav role="navigation" class="navbar">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#!Home">Homes & Hotels</a></li>
+            <li><a href="#!Home">Flights</a></li>
+            <li><a href="#!Home">Car Rentals</a></li>
+            <li><a href="#!Home">Airport Taxis</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div ng-show="LoggedIn" class="container" ng-controller="loginViewController" style="background-color:lightgrey">
+    <div class="row">
+        <div>
+            <label ng-model="Client_email"><a data-toggle="modal" data-target="#ClientModal">{{message}}</a></label>
+        </div>
+    </div>
+    <form ng-controller="UpdateClientController">
+        <div id="ClientModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" style="background-color:lightgray">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Your Information</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label ng-model="Client_email" class="form-control">{{Client_email}}</label>
+
+                            <label for="usrName">UserName</label>
+                            <input type="text" placeholder="Username" ng-model="Client_Name" class="form-control" style="margin:1.5%" required />
+
+                            <label for="psw">Password</label>
+                            <input type="text" placeholder="Password" ng-model="Client_Password" class="form-control" style="margin:1.5%" required />
+
+                            <label for="pnum">Phone Number</label>
+                            <input type="text" placeholder="Phone Number" ng-model="Phone_Number" class="form-control" style="margin:1.5%" />
+
+                            <label for="Title">Title</label>
+                            <input type="text" placeholder="Title" ng-model="Client_Title" class="form-control" style="margin:1.5%" />
+
+                            <label for="fname">First Name</label>
+                            <input type="text" placeholder="First Name" ng-model="Client_FirstName" class="form-control" style="margin:1.5%" />
+
+                            <label for="lname">Last Name</label>
+                            <input type="text" placeholder="Last Name" ng-model="Client_LastName" class="form-control" style="margin:1.5%" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-click="UpdateClient()">Update Information</button>
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#AddressModal">Address</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form ng-controller="UpdateClientController">
+        <div id="AddressModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" style="background-color:aliceblue;width:50%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Address</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label for="adr1">Address</label>
+                        <input type="text" ng-model="AddressLine_1" class="form-control" style="margin:1.5%" />
+                        <input type="text" ng-model="AddressLine_2" class="form-control" style="margin:1.5%" />
+                        <input type="text" ng-model="AddressLine_3" class="form-control" style="margin:1.5%" />
+
+                        <label for="City">City</label>
+                        <input type="text" placeholder="City" ng-model="City" class="form-control" style="margin:1.5%" />
+
+                        <label for="Country">Counrty</label>
+                        <input type="text" placeholder="Country" ng-model="Country" class="form-control" style="margin:1.5%" />
+
+                        <label for="zCode">Zip Code</label>
+                        <input type="text" placeholder="Zip Code" ng-model="Zip_Code" class="form-control" style="width:30%;margin:1.5%" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-click="UpdateAddress()">Update Address</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-controller="SearchController">
+    <form class="search" style="border-radius:10px">
+        <h4>Search</h4>
+        <div class="form__field">
+            <label class="padding">Destination/Property Name:</label>
+            <input type="search" class="form__input" ng-model="searchText" placeholder="Where are you going?" style="margin:auto" />
+            <label class="padding"> Check-in: </label>
+            <input type="date" class="form__input" ng-model="Check_in" placeholder="Check-In Date" />
+            <label class="padding"> Check-out: </label>
+            <input type="date" class="form__input" ng-model="Check_out" placeholder="Check-Out Date" />
+            <label class="padding"> Guest: </label>
+            <input type="number" class="form__input" ng-model="People" />
+            <input class="button" type="submit" value="Search" ng-click="Search()" />
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <section id="wellcome" class="jumbotron  jumbotron-fluid">
+        <div class="container">
+            <h1>Plan your trip</h1>
+            <p>From cozy country homes to funky city apartments</p>
+            <img src="../Pictures/capetown.jpg" class="img-show" />
+            <img src="../Pictures/Durban.png" class="img-show" />
+            <img src="../Pictures/London.jpg" class="img-show" />
+            <img src="../Pictures/Hong-Kong.jpg" class="img-show" />
+            <img src="../Pictures/NewYork.jpg" class="img-show" />
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card">
+                <div class="card-title"> Where to go</div>
+                <hr>
+                <p class="cardbody">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat quis libero id accumsan. Duis in nibh quis lorem elementum interdum sed nec eros. Nulla consequat, ex vitae faucibus dignissim, mauris arcu aliquam lorem, eget fringilla
+                    ipsum nisi vitae augue.
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card">
+                <div class="card-title"> Favorite Quotes</div>
+                <hr>
+                <p class="cardbody">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat quis libero id accumsan. Duis in nibh quis lorem elementum interdum sed nec eros. Nulla consequat, ex vitae faucibus dignissim, mauris arcu aliquam lorem, eget fringilla
+                    ipsum nisi vitae augue.
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3" id="bottom">
+            <div class="card card">
+                <div class="card-title"> Travel Stores </div>
+                <hr>
+                <p class="cardbody"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat quis libero id accumsan. Duis in nibh quis lorem elementum interdum sed nec eros. Nulla consequat, ex vitae faucibus dignissim, mauris arcu aliquam lorem, eget fringillaipsum nisi vitae augue.</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card">
+                <div class="card-title">Our Partners</div>
+                <hr>
+                <p class="cardbody">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat quis libero id accumsan. Duis in nibh quis lorem elementum interdum sed nec eros. Nulla consequat, ex vitae faucibus dignissim, mauris arcu aliquam lorem, eget fringilla
+                    ipsum nisi vitae augue.
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-xs-12 col-md-6">
+                    <h5>Footer Content</h5>
+                    <p>
+                        Booking.com is a site where you can make reservation for your next family trip.<br />Whoever you are, whatever you want, we’ve got the perfect place for you. Our 28,862,038 listings include 5,544,284 listings of homes, apartments and other unique places to stay, and are located in 137,827 destinations in 229 countries and territories. Booking.com B.V. is based in Amsterdam, the Netherlands and is supported internationally by 198 offices in 70 countries.<br /> Copyright © 1996–2018 Booking.com™. All rights reserved.
+                        <br />
+                        Booking.com is part of Booking Holdings Inc., the world leader in online travel and related services.
+                    </p>
+                </div>
+
+                <div class=" col-xs-4 col-md-2 ">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Link 2</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class=" col-xs-4 col-md-2">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Link 2</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-xs-4 col-md-2 ">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+
+                        <li>
+                            <a href="#">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <div class="text-center">
+            <ul class="list-unstyled list-inline">
+                <li>
+                    <a>
+                        <i class="fa fa-facebook"> </i>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-twitter"> </i>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-google"> </i>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <!--/.Social buttons-->
+        <!--Copyright-->
+        <div class=" text-center">
+            © 2018 Copyright:
+            <a href="#"> Booking.Com </a>
+        </div>
+    </footer>
+</div>
