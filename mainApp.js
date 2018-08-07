@@ -660,7 +660,7 @@ mainApp.controller("AddRoomController", function ($scope, PropertyApi) {
             'Property_ID': $scope.Properties.length
         };
 
-        PropertyApi.addRoom(roomToAdd).then(function (response) { alert("Room Added") }, function (reason) { $scope.error = reason })
+        PropertyApi.addRoom(roomToAdd).then(function (response) {  }, function (reason) { $scope.error = reason })
     }
 
 });
